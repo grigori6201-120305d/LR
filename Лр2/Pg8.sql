@@ -1,4 +1,4 @@
-use cd;
+use cd; /*объекты с дешевой качественной стоимостью*/
 select facility, 
        case 
          when monthlymaintenance < 100 then 'дешевый' 

@@ -1,2 +1,2 @@
-use cd;
+use cd;/*аналогично 3 и 4 заданию, только добавляется объединение двух условий через and*/
 select facid, facility, membercost from facilities where membercost < monthlymaintenance / 50 and not membercost = 0;
