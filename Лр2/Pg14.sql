@@ -1,4 +1,4 @@
 USE cd; /*выбираем объекты с максимальной(MAX) или минимальной(MIN) стоимостью*/
-select facility, membercost from facilities where guestcost = (select min(guestcost) from facilities)
+SELECT facility, membercost FROM facilities WHERE guestcost = (SELECT min(guestcost) FROM facilities)
 union
-select facility, membercost from facilities where guestcost = (select max(guestcost) from facilities);
+SELECT facility, membercost FROM facilities WHERE guestcost = (SELECT max(guestcost) FROM facilities);

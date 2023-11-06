@@ -1,2 +1,2 @@
 USE cd;/* открываем весь facilities */
-select * from facilities;
+SELECT * FROM facilities;

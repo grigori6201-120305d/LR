@@ -1,2 +1,2 @@
-use cd; /*выводим только некоторые столбцы и строки для которых membercost = 0 с помощью условия после функции WHERE*/
-select facid, facility, membercost from facilities where membercost = 0;
+USE cd; /*выводим только некоторые столбцы и строки для которых membercost = 0 с помощью условия после функции WHERE*/
+SELECT facid, facility, membercost FROM facilities WHERE membercost = 0;

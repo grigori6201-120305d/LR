@@ -1,2 +1,2 @@
-use cd; /*выбираем максимальное значение joindate через функцию MAX*/
-select max(joindate) from members limit 1;
+USE cd; /*выбираем максимальное значение joindate через функцию MAX*/
+SELECT max(joindate) FROM members LIMIT 1;

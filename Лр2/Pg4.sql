@@ -1,2 +1,2 @@
-use cd; /*как и в задании 3, только membercost не равен нулю*/
-select facid,facility, membercost from facilities where not membercost = 0;
+USE cd; /*как и в задании 3, только membercost не равен нулю*/
+SELECT facid,facility, membercost FROM facilities WHERE NOT membercost = 0;
