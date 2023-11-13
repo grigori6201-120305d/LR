@@ -1,0 +1,6 @@
+USE cd;
+START TRANSACTION;
+DELETE FROM bookings;
+SELECT * FROM bookings;
+ROLLBACK;
+SELECT * FROM bookings;
