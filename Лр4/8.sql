@@ -1,0 +1,6 @@
+-- Active: 1697233781638@@127.0.0.1@3306@cd
+USE cd;
+START TRANSACTION
+DELETE memid FROM bookings WHERE memid = 37
+SELECT * FROM members;
+SELECT * FROM members;

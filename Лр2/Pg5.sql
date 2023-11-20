@@ -1,2 +1,0 @@
-USE cd;/*аналогично 3 и 4 заданию, только добавляется объединение двух условий через and*/
-SELECT facid, facility, membercost FROM facilities WHERE membercost < monthlymaintenance / 50 AND NOT membercost = 0;
