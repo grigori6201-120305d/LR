@@ -2,4 +2,4 @@
 USE cd;
 SELECT facility, starttime FROM facilities
 JOIN bookings ON facilities.facid = bookings.facid
-WHERE facilities.facility like "%Tennis Court%" AND starttime > '2012.09.18' AND starttime < '2012.09.19'
+WHERE facilities.facility LIKE "%Tennis Court%" AND starttime > '2012.09.18' AND starttime < '2012.09.19'

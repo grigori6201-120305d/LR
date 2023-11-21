@@ -3,4 +3,5 @@ USE cd;
 START TRANSACTION
 DELETE memid FROM bookings WHERE memid = 37
 SELECT * FROM members;
+ROLLBACK; 
 SELECT * FROM members;
