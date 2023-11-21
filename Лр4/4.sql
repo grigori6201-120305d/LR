@@ -10,4 +10,4 @@ DECIMAL(10,2);
 UPDATE facilities
 SET initialoutlay = 10000 
 WHERE facid = 1 AND initialoutlay = initialoutlay + 0.02;
-SELECT * FROM facilities;
+SELECT * FROM facilities; facid
