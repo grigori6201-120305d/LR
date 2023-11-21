@@ -8,4 +8,4 @@ SELECT m1.memid AS 'id',
     m2.surname AS 'рекомендовали'
 FROM members m1 
 JOIN members m2 ON m1.recommendedby = m2.memid 
-ORDER BY  m1.firstname, m1.surname
+ORDER BY  m1.firstname, m1.surname;
