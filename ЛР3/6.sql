@@ -1,4 +1,5 @@
 -- Active: 1697233781638@@127.0.0.1@3306@cd
+--Выберите список бронирования на 14 сентября 2012 г., что стоимость которых более 30--
 USE cd;
 SELECT DISTINCT CONCAT(f.facility, ' ', m.firstname) AS facilityName, starttime,
 CASE 

@@ -1,6 +1,7 @@
 -- Active: 1697233781638@@127.0.0.1@3306@cd
+--Выберите ФИО (== имя + фамилия) всех, кто покупал корты 1 и 2--
 USE cd;
-SELECT DISTINCT concat(surname, ' ', firstname) AS 'ALL NAME', starttime, facility FROM members m
-JOIN bookings b ON m.memid = b.memid 
-JOIN facilities f ON f.facid = b.facid
-WHERE f.facid IN (0,1) AND m.memid != 'NULL';
+SELECT DISTINCT CONCAT(firstname," ",surname) AS "membername" FROM members
+JOIN bookings ON members.memid = bookings.memid
+JOIN facilities ON facilities.facid = bookings.facid
+WHERE facilities.facility LIKE "%Court%";
