@@ -13,7 +13,7 @@ END AS incomegroup
 FROM (
   SELECT f.facility, SUM(IF(b.memid = 0, f.guestcost * b.slots, f.membercost * b.slots)) AS revenue
   FROM facilities f
-  INNER JOIN bookings b ON f.facid = b.facid
+  JOIN bookings b ON f.facid = b.facid
   GROUP BY f.facility
 ) AS subquery
 ORDER BY incomegroup, facility;
