@@ -4,29 +4,24 @@
 Не забудьте учесть возможность того, что в день будет нулевой доход. 
 Примечание: используйте DATE_ADD для генерации серии дат.*/
 USE cd;
-SELECT DATE, 
-       IFNULL((SELECT SUM(IF(memid = 0, f.guestcost * b.slots, f.membercost * b.slots)) 
-               FROM facilities f 
-               INNER JOIN bookings b ON f.facid = b.facid
-               WHERE DATE(b.starttime) = DATA), 0) AS revenue,
-       (SELECT AVG(IF(memid = 0, f.guestcost * b.slots, f.membercost * b.slots))
-               FROM facilities f  
-               INNER JOIN bookings b ON f.facid = b.facid
-               WHERE DATE(b.starttime) BETWEEN DATE_SUB(DATE, INTERVAL 15 DAY) AND DATE) AS moving_average
-FROM (
-    SELECT DATE_ADD('2012-08-01', INTERVAL (a1.a + (10 * a10.a) + (100 * a100.a)) DAY) AS DATE
-    FROM 
-    (SELECT 0 AS A UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 
-     UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7
-     UNION SELECT 8 UNION SELECT 9) AS a1
-    CROSS JOIN 
-    (SELECT 0 AS A UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 
-     UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7
-     UNION SELECT 8 UNION SELECT 9) AS a10
-    CROSS JOIN 
-    (SELECT 0 AS A UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 
-     UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7
-     UNION SELECT 8 UNION SELECT 9) AS a100
-) AS dates
-WHERE MONTH(DATE) = 8 AND YEAR(DATE) = 2012
-ORDER BY DATE;
+WITH RECURSIVE DateRange AS 
+    (SELECT '2012-08-01' AS Date
+    UNION ALL
+    SELECT DATE_ADD(Date, INTERVAL 1 DAY) 
+    FROM DateRange 
+    WHERE Date < '2012-08-31'),
+TotalRevenue AS
+(SELECT DateRange.Date, 
+SUM(CASE 
+		WHEN(DATE(b.starttime) != Date) THEN 0
+		WHEN (b.memid = 0) THEN f.guestcost * b.slots
+		ELSE f.membercost * b.slots
+	END) AS total_revenue,
+(SUM(IF(b.memid = 0, f.guestcost * b.slots, f.membercost * b.slots) / 15)) AS moving_average_revenue
+    FROM DateRange
+    LEFT JOIN bookings b ON DATE_ADD(Date, INTERVAL -14 day) <= DATE(b.starttime) AND DATE(b.starttime) <= Date
+    LEFT JOIN facilities f ON b.facid = f.facid
+    GROUP BY Date)
+    
+SELECT * FROM TotalRevenue
+ORDER BY Date;
