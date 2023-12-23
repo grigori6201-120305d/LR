@@ -78,5 +78,3 @@ FROM payments;
 SELECT SUM(CalculateRentalCost(memid, facid, slots)) as costJuly2
 FROM bookings 
 WHERE YEAR(starttime) = 2012 AND MONTH(starttime) = 7;
-
-/*Вывод: при подсчете costJuly1 и costJuly2 выдали одинаковые значения*/
