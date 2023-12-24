@@ -2,24 +2,24 @@
 /*Напишите процедуру, которая считает окупаемость каждого объекта клуба на 
 основании оплаты аренд за месяц. Применить ее к июлю 2012 года. */
 USE cd;
+DELIMITER //
+CREATE PROCEDURE CalculateProfitability(IN monthYear DATE)
+BEGIN
+    DECLARE totalCost DECIMAL(10, 2);
+    DECLARE totalIncome DECIMAL(10, 2);
 
-DELIMITER $$
+    SELECT SUM(initialoutlay + (monthlymaintenance * DATEDIFF(month(now()), monthYear)))
+    INTO totalCost
+    FROM facilities;
 
-DROP PROCEDURE IF EXISTS payback $$
-CREATE PROCEDURE payback(currentDate DATE)
-READS SQL DATA
-NOT DETERMINISTIC
-  BEGIN
-    SELECT book.facid, fac.facility, SUM(pay.payment) - fac.monthlymaintenance AS Доход
-	FROM bookings AS book
-	JOIN payments AS pay ON book.bookid = pay.bookid
-	JOIN facilities AS fac ON book.facid = fac.facid
-	WHERE DATE_FORMAT(starttime, '%y %m') = DATE_FORMAT(currentDate, '%y %m')
-	GROUP BY book.facid ORDER BY book.facid;
-  END $$
+    SELECT SUM(payment)
+    INTO totalIncome
+    FROM payments
+    JOIN bookings ON payments.bookid = bookings.bookid
+    WHERE MONTH(bookings.starttime) = MONTH(monthYear)
+      AND YEAR(bookings.starttime) = YEAR(monthYear);
 
+    SELECT totalIncome - totalCost AS Profitability;
+END;
+//
 DELIMITER ;
-
-CALL payback('2012-07-18');
-
-CALL payback('2012-07-14');
